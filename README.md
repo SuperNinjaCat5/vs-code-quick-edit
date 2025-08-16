@@ -1,7 +1,7 @@
 # VS Code Quick Edit 
 
 ![Lua](https://img.shields.io/badge/Lua-5.4-blue)
-![GitHub commit](https://img.shields.io/github/commit/short/SuperNinjaCat5/vs-code-quick-edit/main)
+![GitHub commit](https://img.shields.io/github/commit-short/SuperNinjaCat5/vs-code-quick-edit/main)
 ![License](https://img.shields.io/github/license/SuperNinjaCat5/vs-code-quick-edit)
 
 ---
