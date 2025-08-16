@@ -5,8 +5,8 @@
 
 ---
 
-A useful plugin for skill issued vim users. It allows you to quickly open the current file or directory
-in vs code. Just type :Vscode or :Vscodefolder! It's that easy!
+A useful plugin for preish vim users. It allows you to quickly open the current file or directory
+in vs code. Just type `:Vscode` or `:Vscodefolder`! It's that easy!
 
 # Installing
 
@@ -15,8 +15,7 @@ in vs code. Just type :Vscode or :Vscodefolder! It's that easy!
 1. Be sure to have vs code installed and working
 2. Make sure to have neovim setup (if you dont know how use the offical kickstart repo)
 
-| Tip!
-| 
-| Test the command code . and nvim in terminal to be sure everything
-| will work
-|
+### Tip
+
+> Test the command `code .` and `nvim` in terminal to be sure everything will work
+
