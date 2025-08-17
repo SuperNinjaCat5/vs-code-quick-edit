@@ -12,7 +12,8 @@ function M.vscode(filepath)
   print 'Opening Current File in VS code.'
   local file = filepath or vim.fn.expand '%:p'
   if file == '' then
-    print 'No file to open!'
+    print 'No file to open! Falling back to current dir'
+    file = vim.fn.getcwd()
     return
   end
 
@@ -22,7 +23,8 @@ end
 function M.vscode_folder(dirpath)
   local folder = dirpath or vim.fn.expand '%:p:h'
   if folder == '' then
-    print 'No folder to open!'
+    print 'No folder to open! Falling back to current dir'
+    folder = vim.fn.getcwd()
     return
   end
   print 'Opening Current Folder in VS code.'
