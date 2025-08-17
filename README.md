@@ -24,14 +24,20 @@ in vs code. Just type `:Vscode` or `:Vscodefolder`! It's that easy!
 To setup you will first need to clone the repo into a folder of your choice. I reccomend the one that has your other plugins.
 We will be using lazy.nvim to install the plugin.
 
-1. In your lazy file (~/.config/nvim/lua/custom/plugins/init.lua if you did the kickstart project) paste this code:
-{
-  dir = vim.fn.expand('~/.config/nvim/lua/vs-code-quick-edit.nvim'),
-  config = function()
-    require('vs-code-quick-edit').setup {
-      file_keymap = '<Leader>o',
-      folder_keymap = '<Leader>O',
-    }
-  end,
-}
-> It may need to be modified
+1. In your lazy file please add: 
+
+  {
+    dir = vim.fn.expand '~/.config/nvim/lua/vs-code-quick-edit.nvim', -- This is the file path to whereever you cloned it
+    config = function()
+      require('vs-code-quick-edit').setup {  -- These are your keybinds, I reccomend chaging them depending on your preference
+        file_keymap = '<Leader>v', -- open current file
+        folder_keymap = '<Leader>V', -- open folder
+      }
+    end,
+
+> The above should be modified!
+
+2. Run `:Lazy install` and `:Lazy sycn` to setup the project.
+3. That's it!
+
+

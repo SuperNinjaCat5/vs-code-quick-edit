@@ -4,6 +4,8 @@ local M = {}
 M.opts = { -- Keybinds defults
   file_keymap = '<Leader>v', --defult <Leader>v
   folder_keymap = '<Leader>V', --defult <Leader>V
+  prefix = '', --  default is code just leave empty. If you for some reason have like `vscodium .` instead of `vscode .` this does that
+  cmd_prefix = '', -- If you want to be able to do RunVscode or OpenVscode or NvimVscode
 }
 
 function M.vscode(filepath)
@@ -14,7 +16,7 @@ function M.vscode(filepath)
     return
   end
 
-  vim.fn.jobstart({ 'code', '-n', file }, { detach = true })
+  vim.fn.jobstart({ M.opts.prefix, '-n', file }, { detach = true })
 end
 
 function M.vscode_folder(dirpath)
@@ -24,22 +26,25 @@ function M.vscode_folder(dirpath)
     return
   end
   print 'Opening Current Folder in VS code.'
-  vim.fn.jobstart({ 'code', '-n', folder }, { detach = true })
+  vim.fn.jobstart({ M.opts.prefix, '-n', folder }, { detach = true })
 end
 
 function M.setup(opts)
   M.opts = vim.tbl_extend('force', M.opts, opts or {})
 
-  vim.api.nvim_command [[
-  command! -nargs=? -complete=file Vscode lua require("vs-code-quick-edit").vscode(<f-args>)
-  ]]
+  local cmd_prefix = M.opts.cmd_prefix ~= '' and M.opts.cmd_prefix:gsub('[^%w]', '') or ''
+  local prefix = M.opts.prefix ~= '' and M.opts.prefix or 'Code'
 
-  vim.api.nvim_command [[
-  command! -nargs=? -complete=dir Vscodefolder lua require("vs-code-quick-edit").vscode_folder(<f-args>)
-  ]]
+  vim.api.nvim_create_user_command(cmd_prefix .. 'Vscode', function(opts)
+    M.vscode(opts.args)
+  end, { nargs = '?' })
 
-  vim.keymap.set('n', M.opts.file_keymap, ':Vscode<CR>', { noremap = true, silent = true })
-  vim.keymap.set('n', M.opts.folder_keymap, ':VscodeFolder<CR>', { noremap = true, silent = true })
+  vim.api.nvim_create_user_command(cmd_prefix .. 'VscodeFolder', function(opts)
+    M.vscode_folder(opts.args)
+  end, { nargs = '?' })
+
+  vim.keymap.set('n', M.opts.file_keymap, string.format(':%sVscode<CR>', prefix), { noremap = true, silent = true })
+  vim.keymap.set('n', M.opts.folder_keymap, string.format(':%sVscodeFolder<CR>', prefix), { noremap = true, silent = true })
 end
 
 return M
